@@ -1,0 +1,11 @@
+﻿  Vector.cpp
+C:\Users\User\Desktop\OOP\Seminar_OOP\15.03.2021\Seminar_15.03.2021\Vector.cpp(53,3): error C2561: 'Vector::operator +': function must return a value
+C:\Users\User\Desktop\OOP\Seminar_OOP\15.03.2021\Seminar_15.03.2021\Vector.cpp(49): message : see declaration of 'Vector::operator +'
+C:\Users\User\Desktop\OOP\Seminar_OOP\15.03.2021\Seminar_15.03.2021\Vector.cpp(63,3): error C2561: 'Vector::operator +=': function must return a value
+C:\Users\User\Desktop\OOP\Seminar_OOP\15.03.2021\Seminar_15.03.2021\Vector.cpp(60): message : see declaration of 'Vector::operator +='
+C:\Users\User\Desktop\OOP\Seminar_OOP\15.03.2021\Seminar_15.03.2021\Vector.cpp(73,3): error C2561: 'Vector::operator []': function must return a value
+C:\Users\User\Desktop\OOP\Seminar_OOP\15.03.2021\Seminar_15.03.2021\Vector.cpp(69): message : see declaration of 'Vector::operator []'
+C:\Users\User\Desktop\OOP\Seminar_OOP\15.03.2021\Seminar_15.03.2021\Vector.cpp(82,3): error C2561: 'Vector::operator []': function must return a value
+C:\Users\User\Desktop\OOP\Seminar_OOP\15.03.2021\Seminar_15.03.2021\Vector.cpp(78): message : see declaration of 'Vector::operator []'
+C:\Users\User\Desktop\OOP\Seminar_OOP\15.03.2021\Seminar_15.03.2021\Vector.cpp(116,3): error C2561: 'Vector::getValue': function must return a value
+C:\Users\User\Desktop\OOP\Seminar_OOP\15.03.2021\Seminar_15.03.2021\Vector.cpp(112): message : see declaration of 'Vector::getValue'
