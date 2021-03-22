@@ -77,7 +77,10 @@ std::ostream& operator<<(std::ostream& os, const Card& card)
 		case COLOR::YELLOW:
 			os << "Yellow ";
 			break;
+		default:
+			os << "Unknown";
+			break;
 	}
-	os <<  card.getNumber() << " /";
+	os <<  card.getNumber() << "/";
 	return os;
 }
