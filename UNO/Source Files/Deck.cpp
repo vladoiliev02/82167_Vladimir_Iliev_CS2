@@ -79,6 +79,5 @@ void Deck::setSize(const size_t deckSize)
 
 Card Deck::topCard()
 {
-	currentCard;
 	return deck[currentCard--];
 }
