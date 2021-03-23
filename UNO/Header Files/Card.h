@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-using namespace std;
 
 enum class COLOR {
 	UNKNOWN = -1,
@@ -22,7 +21,7 @@ public:
 	Card& operator=(const Card& other);
 	bool operator==(const Card& other) const;
 	bool operator!=(const Card& other) const;
-	friend ostream& operator<<(ostream& os, const Card& card);
+	friend std::ostream& operator<<(std::ostream& os, const Card& card);
 
 private:
 	void create(const COLOR color, const unsigned short number);
@@ -32,5 +31,6 @@ public:
 	const unsigned short getNumber() const;
 
 public:
-	void generateRandom();	
+	void generateRandom();
+	void changeColor(const int color);
 };

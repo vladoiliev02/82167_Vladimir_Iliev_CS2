@@ -2,15 +2,33 @@
 
 void Player::create(const size_t handSize)
 {
-	if (freeSpace(handSize))
-		this->handSize = handSize;
-	else
-		this->handSize = 3;
+	MAX_HAND_SIZE = 10;
+	if (handSize > MAX_HAND_SIZE)
+		MAX_HAND_SIZE = MAX_HAND_SIZE;
+	hand = allocHand(MAX_HAND_SIZE);
+	this->handSize = handSize;
+	if (!hand)
+		return;
 	for (size_t i = 0; i < handSize; i++)
 		hand[i].generateRandom();
 }
 
-bool Player::freeSpace(const size_t handSize) { return (0 <= handSize && handSize <= 9); }
+Card* Player::allocHand(const size_t MAX_HAND_SIZE)
+{
+	Card* newHand = new(std::nothrow) Card[MAX_HAND_SIZE];
+	if (!hand) {
+		std::cerr << "Memory not allocated for hand." << std::endl;
+		return nullptr;
+	}
+	return newHand;
+}
+
+bool Player::freeSpace(const size_t handSize) { return (0 <= handSize && handSize < MAX_HAND_SIZE); }
+
+void Player::clean()
+{
+	delete[] hand;
+}
 
 Player::Player()
 {
@@ -20,6 +38,11 @@ Player::Player()
 Player::Player(const unsigned short handSize)
 {
 	create(handSize);
+}
+
+Player::~Player()
+{
+	clean();
 }
 
 const size_t Player::getHandSize() const { return handSize; }
@@ -63,11 +86,28 @@ const size_t Player::chooseCard() const
 	return choice;
 }
 
+bool Player::increaseMaxHandSize()
+{
+	if (handSize >= MAX_HAND_SIZE) {
+		MAX_HAND_SIZE *= 2;
+		Card* newHand = allocHand(MAX_HAND_SIZE);
+		if (!newHand)
+			return false;
+		for (size_t i = 0; i < handSize; i++)
+			newHand[i] = hand[i];
+		clean();
+		hand = newHand;
+	}
+	return true;
+}
+
 void Player::drawCard(Deck& deck)
 {
 	if (!freeSpace(handSize))
 		removeCard(chooseCard());
 	hand[handSize++] = deck.topCard();
+	if (!increaseMaxHandSize())
+		std::cerr << "Hand size not increased." << std::endl;
 }
 
 Card Player::playCard()

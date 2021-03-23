@@ -1,5 +1,6 @@
 #include "Card.h"
 #include <iostream>
+#include <cstdlib>
 
 void Card::create(const COLOR color, const unsigned short number)
 {
@@ -49,27 +50,32 @@ bool Card::operator!=(const Card& other) const
 const COLOR Card::getColor() const { return color; }
 const unsigned short Card::getNumber() const { return number; }
 
+void Card::changeColor(const int color)
+{
+	switch (color) {
+	case 0:
+		this->color = COLOR::RED;
+		break;
+	case 1:
+		this->color = COLOR::BLUE;
+		break;
+	case 2:
+		this->color = COLOR::GREEN;
+		break;
+	case 3:
+		this->color = COLOR::YELLOW;
+		break;
+	default:
+		this->color = COLOR::UNKNOWN;
+		break;
+	}
+}
+
 void Card::generateRandom()
 {
-	number = rand() % 9 + 1;
+	number = rand() % 13 + 1;
 	int color = rand() % 4;
-	switch (color) {
-		case 0:
-			this->color = COLOR::RED;
-			break;
-		case 1:
-			this->color = COLOR::BLUE;
-			break;
-		case 2:
-			this->color = COLOR::GREEN;
-			break;
-		case 3:
-			this->color = COLOR::YELLOW;
-			break;
-		default:
-			this->color = COLOR::UNKNOWN;
-			break;
-	}
+	changeColor(color);
 }
 
 std::ostream& operator<<(std::ostream& os, const Card& card)
@@ -92,6 +98,23 @@ std::ostream& operator<<(std::ostream& os, const Card& card)
 			os << "Unknown";
 			break;
 	}
-	os <<  card.getNumber() << "/";
+
+	switch (card.getNumber()) {
+		default:
+			os << card.getNumber() << "/";
+			break;
+		case 10:
+			os << "Reverse" << "/";
+			break;
+		case 11:
+			os << "+4" << "/";
+			break;
+		case 12:
+			os << '/';
+			break;
+		case 13:
+			os << "Skip" << "/";
+			break;
+	}
 	return os;
 }

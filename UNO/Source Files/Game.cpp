@@ -2,6 +2,7 @@
 
 void Game::createGame(const size_t playerCount, const size_t deckSize)
 {
+	reverse = false;
 	this->currentCard = 29; //Because the deck will have 30 cards by default;
 	this->playerCount = playerCount;
 	players = new(std::nothrow) Player[playerCount];
@@ -49,6 +50,8 @@ bool Game::hasPlayableCards(const Player& player)
 
 bool Game::cardIsValid(const Card& card) const
 {
+	if (card.getNumber() == 12) //Change color;
+		return true;
 	if (onTheField[currentCard].getColor() == card.getColor())
 		return true;
 	if (onTheField[currentCard].getNumber() == card.getNumber())
@@ -56,14 +59,68 @@ bool Game::cardIsValid(const Card& card) const
 	return false;
 }
 
-void Game::turn(Player& player, const size_t& i)
+size_t Game::nextPlayer(const size_t player_idx)
+{
+	if (reverse) {
+		if (player_idx - 1 >= playerCount)
+			return playerCount - 1;
+		return player_idx - 1;
+	}
+	if (player_idx + 1 >= playerCount)
+		return 0;
+	return player_idx + 1;
+}
+
+void Game::changeColor(Card& card)
+{
+	int choice;
+	do {
+		system("cls");
+		std::cout << "Please choose a color:\n"
+				  << "0. Red\n"
+				  << "1. Blue\n"
+				  << "2. Green\n"
+				  << "3. Yellow" << std::endl;
+		std::cin >> choice;
+		if (choice < 0 || choice > 3) {
+			std::cerr << "Invalid choice." << std::endl;
+			system("pause");
+		}
+	} while (choice < 0 || choice > 3);
+	card.changeColor(choice);
+}
+
+size_t Game::specialCard(Card& card, size_t player_idx)
+{
+	if (card.getNumber() == 10) { //Reverse;
+		reverse ? reverse = false : reverse = true;
+	}
+	else if (card.getNumber() == 11) { // +4;
+		player_idx = nextPlayer(player_idx);
+		for (short i = 0; i < 4; i++) {
+			deckHasEnded();
+			players[player_idx].drawCard(deck);
+		}
+		return player_idx;
+	}
+	else if (card.getNumber() == 12) { // Change color;
+		changeColor(card);
+	}
+	else if (card.getNumber() == 13) { // Skip next player;
+		player_idx = nextPlayer(player_idx);
+	}
+	return nextPlayer(player_idx);
+}
+
+bool Game::turn(Player& player, size_t& i) //i == player index;
 {
 	deckHasEnded();
 	if (!hasPlayableCards(player)) {
 		player.drawCard(deck);
 		std::cout << "No card can be played. You drew: " << players[i].getCard(players[i].getHandSize() - 1) << std::endl;
 		system("pause");
-		return;
+		i = nextPlayer(i);
+		return false;
 	}
 	Card card; //Card that will now be played;
 	do {
@@ -73,6 +130,10 @@ void Game::turn(Player& player, const size_t& i)
 	} while (!cardIsValid(card));
 	onTheField[--currentCard] = card;
 	player.removeCard(card);
+	if (isWinner(player))
+		return true;
+	i = specialCard(onTheField[currentCard], i);
+	return false;
 }
 
 bool Game::isWinner(const Player& player)
@@ -93,19 +154,14 @@ void Game::printGame(const Player& player) const
 void Game::play()
 {
 	size_t i = 0;
-	int winner;
+	size_t winner;
 	while (true) {
 		printGame(getPlayer(i));
 		std::cout << "Player " << i << "'s turn." << std::endl;
-		turn(getPlayer(i), i);
-		if (isWinner(getPlayer(i))) {
+		if (turn(getPlayer(i), i)) {
 			winner = i;
 			break;
 		}
-		i++;
-		if (i >= playerCount)
-			i = 0;
 	}
-
-	std::cout << "Player " << i << " wins!!!" << endl;
+	std::cout << "Player " << winner << " wins!!!" << std::endl;
 }
