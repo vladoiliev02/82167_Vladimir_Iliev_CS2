@@ -5,6 +5,7 @@
 class Deck {
 private:
 	size_t deckSize;
+	size_t currentCard;
 	Card* deck;
 
 public:

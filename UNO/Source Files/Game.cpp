@@ -2,7 +2,7 @@
 
 void Game::createGame(const size_t playerCount, const size_t deckSize)
 {
-	this->currentCard = 29; //Because the deck will have 30 cards;
+	this->currentCard = 29; //Because the deck will have 30 cards by default;
 	this->playerCount = playerCount;
 	players = new(std::nothrow) Player[playerCount];
 	if (!players)
@@ -12,8 +12,6 @@ void Game::createGame(const size_t playerCount, const size_t deckSize)
 		onTheField.setSize(deckSize);
 		this->currentCard = deckSize - 1; //Index of the top card in the deck on the field;
 	}
-	for (size_t i = 0; i < deck.getSize(); i++)
-		deck[i].generateRandom();
 }
 
 void Game::deleteGame() { delete[] players; }
@@ -35,7 +33,7 @@ Player& Game::getPlayer(const size_t idx) const
 
 void Game::deckHasEnded()
 {
-	if (deck.getSize() == currentCard) {
+	if (deck.getSize() == currentCard + deck.getSize()) {
 		deck = onTheField;
 		currentCard = deck.getSize() - 1;
 	}
@@ -49,7 +47,7 @@ bool Game::hasPlayableCards(const Player& player)
 	return false;
 }
 
-bool Game::cardIsValid(const Card& card)
+bool Game::cardIsValid(const Card& card) const
 {
 	if (onTheField[currentCard].getColor() == card.getColor())
 		return true;
@@ -60,10 +58,11 @@ bool Game::cardIsValid(const Card& card)
 
 void Game::turn(Player& player, const size_t& i)
 {
-	cout << "Player" << i << "'s turn." << endl;
 	deckHasEnded();
 	if (!hasPlayableCards(player)) {
 		player.drawCard(deck);
+		std::cout << "No card can be played. You drew: " << players[i].getCard(players[i].getHandSize() - 1) << std::endl;
+		system("pause");
 		return;
 	}
 	Card card; //Card that will now be played;
@@ -72,8 +71,8 @@ void Game::turn(Player& player, const size_t& i)
 		if (!cardIsValid(card))
 			std::cerr << "Invalid choice. Try again" << std::endl;
 	} while (!cardIsValid(card));
-	onTheField[currentCard] = card;
-	currentCard -= 1;
+	onTheField[--currentCard] = card;
+	player.removeCard(card);
 }
 
 bool Game::isWinner(const Player& player)
@@ -89,4 +88,24 @@ void Game::printGame(const Player& player) const
 	std::cout << "Current card:        " << onTheField[currentCard] << std::endl;
 	for (size_t i = 0; i < player.getHandSize(); i++)
 		std::cout << i << " : " << player.getCard(i) << std::endl;
+}
+
+void Game::play()
+{
+	size_t i = 0;
+	int winner;
+	while (true) {
+		printGame(getPlayer(i));
+		std::cout << "Player " << i << "'s turn." << std::endl;
+		turn(getPlayer(i), i);
+		if (isWinner(getPlayer(i))) {
+			winner = i;
+			break;
+		}
+		i++;
+		if (i >= playerCount)
+			i = 0;
+	}
+
+	std::cout << "Player " << i << " wins!!!" << endl;
 }

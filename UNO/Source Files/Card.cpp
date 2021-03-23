@@ -34,13 +34,24 @@ Card& Card::operator=(const Card& other)
 	return *this;
 }
 
+bool Card::operator==(const Card& other) const
+{
+	if (color == other.color && number == other.number)
+		return true;
+	return false;
+}
+
+bool Card::operator!=(const Card& other) const
+{
+	return !(*this == other);
+}
+
 const COLOR Card::getColor() const { return color; }
 const unsigned short Card::getNumber() const { return number; }
 
 void Card::generateRandom()
 {
-	srand(time(nullptr));
-	number = rand() % 9;
+	number = rand() % 9 + 1;
 	int color = rand() % 4;
 	switch (color) {
 		case 0:

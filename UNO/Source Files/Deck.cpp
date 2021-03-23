@@ -4,6 +4,7 @@
 void Deck::create(const size_t deckSize)
 {
 	this->deckSize = deckSize;
+	this->currentCard = deckSize - 1;
 	deck = new(std::nothrow) Card[deckSize];
 	if (!deck)
 		std::cerr << "Deck not allocated" << std::endl;
@@ -78,6 +79,6 @@ void Deck::setSize(const size_t deckSize)
 
 Card Deck::topCard()
 {
-	deckSize--;
-	return deck[deckSize + 1];
+	currentCard;
+	return deck[currentCard--];
 }

@@ -20,6 +20,8 @@ public:
 	Card(COLOR color, unsigned short number);
 	Card(const Card& other);
 	Card& operator=(const Card& other);
+	bool operator==(const Card& other) const;
+	bool operator!=(const Card& other) const;
 	friend ostream& operator<<(ostream& os, const Card& card);
 
 private:

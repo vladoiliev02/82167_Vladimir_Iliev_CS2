@@ -21,7 +21,7 @@ public:
 private: 
 	void createGame(const size_t playerCount, const size_t deckSize = 30);
 	void deleteGame();
-	bool cardIsValid(const Card& card);
+	bool cardIsValid(const Card& card) const;
 	bool hasPlayableCards(const Player& player);
 	void deckHasEnded();
 
@@ -30,4 +30,5 @@ public:
 	void turn(Player& player, const size_t& i); //i keeps track of the player whose turn it is;
 	bool isWinner(const Player& player);
 	void printGame(const Player& player) const;
+	void play();
 };

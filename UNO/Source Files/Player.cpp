@@ -1,8 +1,8 @@
 #include "Player.h"
 
-void Player::create(const size_t idx)
+void Player::create(const size_t handSize)
 {
-	if (freeSpace())
+	if (freeSpace(handSize))
 		this->handSize = handSize;
 	else
 		this->handSize = 3;
@@ -10,7 +10,7 @@ void Player::create(const size_t idx)
 		hand[i].generateRandom();
 }
 
-bool Player::freeSpace() { return (0 < handSize && handSize <= 9); }
+bool Player::freeSpace(const size_t handSize) { return (0 <= handSize && handSize <= 9); }
 
 Player::Player()
 {
@@ -22,7 +22,7 @@ Player::Player(const unsigned short handSize)
 	create(handSize);
 }
 
-const unsigned Player::getHandSize() const { return handSize; }
+const size_t Player::getHandSize() const { return handSize; }
 
 const Card Player::getCard(const size_t idx) const
 {
@@ -39,6 +39,18 @@ void Player::removeCard(const size_t idx)
 	handSize--;
 }
 
+void Player::removeCard(const Card& card)
+{
+	size_t idx = 0;
+	while (card != hand[idx])
+		idx++;
+	if (idx < handSize) {
+		removeCard(idx);
+		return;
+	}
+	std::cerr << "Card not found." << std::endl;
+}
+
 const size_t Player::chooseCard() const
 {
 	std::cout << "Pick a card: ";
@@ -53,7 +65,7 @@ const size_t Player::chooseCard() const
 
 void Player::drawCard(Deck& deck)
 {
-	if (!freeSpace())
+	if (!freeSpace(handSize))
 		removeCard(chooseCard());
 	hand[handSize++] = deck.topCard();
 }
@@ -62,6 +74,5 @@ Card Player::playCard()
 {
 	const size_t choice = chooseCard();
 	Card card(hand[choice]);
-	removeCard(choice);
 	return card;
 }
