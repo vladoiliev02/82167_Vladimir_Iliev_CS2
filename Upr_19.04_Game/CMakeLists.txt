@@ -35,5 +35,6 @@ add_executable(main
         ${Hero_SRC}
         ${Paladin_SRC}
         ${Warrior_SRC}
-        ${Wizard_SRC} field.cpp
-        ${Position_SRC})
+        ${Wizard_SRC}
+        ${Position_SRC}
+        field.cpp)
