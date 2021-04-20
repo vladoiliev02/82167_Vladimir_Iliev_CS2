@@ -5,13 +5,6 @@
 #include "Wizard.h"
 #include "field.h"
 
-enum class DIRECTION {
-    UP = -1,
-    DOWN = 2,
-    LEFT = 3,
-    RIGHT = 4,
-};
-
 void gameMenu(Field& field);
 DIRECTION chooseDirection();
 bool moveCharacter(DIRECTION direction, Field& field, int idx);
@@ -20,6 +13,7 @@ void fight(Field& field, Hero& hero);
 int main()
 {
     srand(time(nullptr));
+
     Paladin* p = new Paladin("Jivko");
     Warrior* w = new Warrior("Zdravko");
     Wizard* wz = new Wizard("Petko");
@@ -44,7 +38,7 @@ int main()
 
 void gameMenu(Field& field)
 {
-    std::cout << "Choose Hero: \n";
+    std::cout << "Choose a Hero: \n";
     field.printHeroList();
     int heroIdx;
     bool isValid;

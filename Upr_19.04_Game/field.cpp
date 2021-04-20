@@ -76,12 +76,10 @@ bool Field::heroIsInBounds(const Hero& hero, int x, int y)
 
 bool Field::canFight(const Hero& hero) const
 {
-    bool can_fight = false;
-    int dx[24] = {2, -2, 0, 0, 2, -2, 2, -2, 1, -1, 0, 0, 1, -1, 1, -1, 2, -2, 2, -2, 1, 1, -1,
-                  -1}; //Some are missing :(((
-    int dy[24] = {0, 0, -2, 2, 2, 2, -2, -2, 0, 0, -1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 2, -2, 2,
-                  -2}; //Some are missing :(((
-    for (unsigned i = 0; i < 24; i++) {
+    const short positions = 24;
+    int dx[positions] = {2, -2, 0, 0, 2, -2, 2, -2, 1, -1, 0, 0, 1, -1, 1, -1, 2, -2, 2, -2, 1, 1, -1, -1};
+    int dy[positions] = {0, 0, -2, 2, 2, 2, -2, -2, 0, 0, -1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 2, -2, 2, -2};
+    for (unsigned i = 0; i < positions; i++) {
         if (heroIsInBounds(hero, dx[i], dy[i])) {
             if (field[hero.x + dx[i]][hero.y + dy[i]] != EMPTY) {
                 return true;
