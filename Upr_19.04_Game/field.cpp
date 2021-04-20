@@ -15,7 +15,7 @@ Field::Field(unsigned numOfHeroes)
 {
     for (unsigned i = 0; i < height; i++) {
         for (unsigned j = 0; j < width - 1; j++)
-            field[i][j] = '_';
+            field[i][j] = EMPTY;
         field[i][width - 1] = '\0';
     }
     heroes = new Hero* [numOfHeroes];
@@ -77,15 +77,18 @@ bool Field::heroIsInBounds(const Hero& hero, int x, int y)
 bool Field::canFight(const Hero& hero) const
 {
     bool can_fight = false;
-    int dx[24] = {2, -2,  0, 0, 2, -2,  2, -2, 1, -1,  0, 0, 1, -1,  1, -1, 2, -2,  2, -2, 1, 1, -1, -1}; //Some are missing :(((
-    int dy[24] = {0,  0, -2, 2, 2,  2, -2, -2, 0,  0, -1, 1, 1, -1, -1,  1, 1,  1, -1, -1, 2, -2, 2, -2}; //Some are missing :(((
-    for (unsigned i = 0; i < 12; i++) {
+    int dx[24] = {2, -2, 0, 0, 2, -2, 2, -2, 1, -1, 0, 0, 1, -1, 1, -1, 2, -2, 2, -2, 1, 1, -1,
+                  -1}; //Some are missing :(((
+    int dy[24] = {0, 0, -2, 2, 2, 2, -2, -2, 0, 0, -1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 2, -2, 2,
+                  -2}; //Some are missing :(((
+    for (unsigned i = 0; i < 24; i++) {
         if (heroIsInBounds(hero, dx[i], dy[i])) {
             if (field[hero.x + dx[i]][hero.y + dy[i]] != EMPTY) {
-                    return true;
+                return true;
             }
         }
     }
+    return false;
 }
 
 void Field::heroDies()
@@ -107,6 +110,8 @@ bool Field::hasWon() const
 
 Hero& Field::getHero(unsigned idx)
 {
+    if (idx >= charactersInPlay)
+        throw std::out_of_range("Field::getHero(...)");
     return *heroes[idx];
 }
 
@@ -114,6 +119,27 @@ void Field::printHeroList()
 {
     for (unsigned i = 0; i < charactersInPlay; i++)
         std::cout << i << ": " << heroes[i]->getName() << std::endl;
+}
+
+bool Field::battle(Hero& attacker, Hero& target)
+{
+    if (canAttack(attacker, target)) {
+        try {
+            attacker.basicAttack(target); // Change to specific type attack somehow
+        } catch (std::logic_error& e) {
+            std::cerr << e.what() << std::endl;
+            return false;
+        }
+        heroDies();
+        return true;
+    }
+    return false;
+}
+
+bool Field::canAttack(const Hero& attacker, const Hero& target) const
+{
+    return (attacker.x - target.x <= 2 && attacker.x - target.x >= -2) &&
+           (attacker.y - target.y <= 2 && attacker.y - target.y >= -2);
 }
 
 

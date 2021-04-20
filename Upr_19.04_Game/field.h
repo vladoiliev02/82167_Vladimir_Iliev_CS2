@@ -6,10 +6,10 @@
 #include "Warrior.h"
 #include "Wizard.h"
 
-#define EMPTY '_'
+#define EMPTY '-'
 
-const unsigned height = 6;
-const unsigned width = 15;
+const unsigned height = 10;
+const unsigned width = 20;
 
 class Field : public Hero {
     Hero** heroes = nullptr;
@@ -21,6 +21,7 @@ private:
     bool characterExists(const char* name) const;
     bool canMove(const Hero& hero, int x, int y) const;
     static bool heroIsInBounds(const Hero& hero, int x, int y) ;
+    bool canAttack(const Hero& attacker, const Hero& target) const;
 
 public:
     Field() = delete;
@@ -29,6 +30,7 @@ public:
     void insertCharacter(Hero& character);
     void move(Hero& hero, int x, int y);
     bool canFight(const Hero& hero) const;
+    bool battle(Hero& attacker, Hero& target);
     void heroDies();
     bool hasWon() const;
     void print();

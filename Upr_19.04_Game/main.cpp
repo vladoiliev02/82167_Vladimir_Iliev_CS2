@@ -47,32 +47,47 @@ void gameMenu(Field& field)
     std::cout << "Choose Hero: \n";
     field.printHeroList();
     int heroIdx;
-    std::cin >> heroIdx;
-    bool canFight = field.canFight(field.getHero(heroIdx));
+    bool isValid;
+    bool canFight;
+    do {
+        isValid = false;
+        try {
+            std::cin >> heroIdx;
+            canFight = field.canFight(field.getHero(heroIdx));
+            isValid = true;
+        } catch (std::out_of_range& e) {
+            std::cerr << "Invalid hero chosen" << std::endl;
+        }
+    } while (!isValid);
+
     std::cout << "Choose option\n"
-              << "1. Move\n"
-              << (canFight ? "2. Attack" : "\n")
-              << std::endl;
+              << "1. Move"
+              << (canFight ? "\n2. Attack\n" : "\n");
     int option;
-    std::cin >> option;
-    switch (option) {
-        case 1: {
-            bool hasMoved = false;
-            while (!hasMoved) {
-                DIRECTION d = chooseDirection();
-                hasMoved = moveCharacter(d, field, heroIdx);
-            }
-            break;
-        }
-        case 2: {
-            if (canFight) {
-                fight(field, field.getHero(heroIdx));
+    bool exit = false;
+    while (!exit) {
+        std::cin >> option;
+        switch (option) {
+            case 1: {
+                bool hasMoved = false;
+                while (!hasMoved) {
+                    DIRECTION d = chooseDirection();
+                    hasMoved = moveCharacter(d, field, heroIdx);
+                }
+                exit = true;
                 break;
-            } //Else overflow to default
+            }
+            case 2: {
+                if (canFight) {
+                    fight(field, field.getHero(heroIdx));
+                    exit = true;
+                    break;
+                } //Else overflow to default
+            }
+            default:
+                std::cerr << "Invalid option" << std::endl;
+                break;
         }
-        default:
-            std::cerr << "Invalid option" << std::endl;
-            break;
     }
 }
 
@@ -128,16 +143,18 @@ bool moveCharacter(DIRECTION direction, Field& field, int idx)
 }
 
 
-void fight(Field& field, Hero& hero)
+void fight(Field& field, Hero& attacker)
 {
-    std::cout << "Choose target" << std::endl;
+    std::cout << "Choose target: " << std::endl;
     field.printHeroList();
     int idx;
-    std::cin >> idx; //Check that only targets in range can be attacked;
-    hero.basicAttack(field.getHero(idx)); //Has to be changed to specific character attack;
-    std::cout << "Attacker:\n ";
-    hero.basicStatsPrint();
-    std::cout << "\nTarget:\n ";
+    do {
+        std::cout << "Your choice:";
+        std::cin >> idx;
+    } while (!field.battle(attacker, field.getHero(idx)));
+    std::cout << "---Attacker---\n";
+    attacker.basicStatsPrint();
+    std::cout << "\n----Target----\n";
     field.getHero(idx).basicStatsPrint();
     std::cout << std::endl;
 }
