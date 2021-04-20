@@ -4,7 +4,6 @@ project(Game_character)
 set(CMAKE_CXX_STANDARD 20)
 
 include_directories(Hero
-        ${CMAKE_CURRENT_SOURCE_DIR}
         Hero/src
         Paladin
         Paladin/src
@@ -13,7 +12,9 @@ include_directories(Hero
         Wizard
         Wizard/src
         Position
-        Position/src)
+        Position/src
+        Field
+        Field/src)
 
 set(Hero_SRC
         Hero/src/Hero.cpp)
@@ -30,10 +31,14 @@ set(Wizard_SRC
 set(Position_SRC
         Position/src/Position.cpp)
 
+set(Field_SRC
+        Field/src/field.cpp)
+
 add_executable(main
         main.cpp
+        ${Position_SRC}
         ${Hero_SRC}
         ${Paladin_SRC}
         ${Warrior_SRC}
-        ${Wizard_SRC} field.cpp
-        ${Position_SRC})
+        ${Wizard_SRC}
+        ${Field_SRC})

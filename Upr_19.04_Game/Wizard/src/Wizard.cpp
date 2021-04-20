@@ -5,22 +5,12 @@ Wizard::Wizard(const char* name)
     : Hero(name, 20)
 {}
 
-void Wizard::specialPower()
+void Wizard::afterFightSpecialPower()
 {
-    if (specialPowerAvailable && HP < 40) {
+    if (specialPowerAvailable && HP < 40 && isAlive()) {
         specialPowerAvailable = false;
         HP *= 2;
         damage -= 15;
-    }
-}
-
-void Wizard::attack(Hero& target)
-{
-    try {
-        basicAttack(target);
-    } catch (std::logic_error& e) {
-        std::cerr << e.what() << std::endl;
-        return;
     }
 }
 
@@ -28,5 +18,6 @@ void Wizard::print() const
 {
     std::cout << "Wizard {\n";
     basicStatsPrint();
-    std::cout << " }\n" << std::endl;
+    std::cout << " }" << std::endl;
 }
+

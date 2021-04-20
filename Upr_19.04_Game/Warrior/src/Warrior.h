@@ -10,7 +10,6 @@ private:
 
 public:
     Warrior(const char* name);
-    void attack(Hero& target);
-    void attack(Wizard& target);
-    void print() const;
+    void attack(Hero& target) override;
+    void print() const override;
 };

@@ -28,22 +28,9 @@ void Warrior::attack(Hero& target)
     onKill(target);
 }
 
-void Warrior::attack(Wizard& target)
-{
-    try {
-        basicAttack(target);
-    } catch (std::logic_error& e) {
-        std::cerr << e.what() << std::endl;
-        return;
-    }
-    target.specialPower();
-    lifeSteal();
-    onKill(target);
-}
-
 void Warrior::print() const
 {
     std::cout << "Warrior {\n";
     basicStatsPrint();
-    std::cout << " }\n" << std::endl;
+    std::cout << " }" << std::endl;
 }

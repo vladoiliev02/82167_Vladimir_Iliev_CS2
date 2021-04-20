@@ -7,7 +7,5 @@ class Paladin : public Hero {
 
 public:
     Paladin(const char* name);
-    void attack(Hero& target);
-    void attack(Wizard& target);
-    void print() const;
+    void print() const override;
 };

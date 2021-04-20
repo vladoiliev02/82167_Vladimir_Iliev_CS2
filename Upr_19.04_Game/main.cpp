@@ -1,14 +1,6 @@
-#include <iostream>
-#include <ctime>
-#include "Paladin.h"
-#include "Warrior.h"
-#include "Wizard.h"
-#include "field.h"
+#include "Field/src/field.h"
 
-void gameMenu(Field& field);
-DIRECTION chooseDirection();
-bool moveCharacter(DIRECTION direction, Field& field, int idx);
-void fight(Field& field, Hero& hero);
+void gameMenu(Field&);
 
 int main()
 {
@@ -29,12 +21,19 @@ int main()
         gameMenu(field);
     }
 
+    std::cout << "---Winner---" << std::endl;
+    field.printHeroList();
+
     delete p;
     delete w;
     delete wz;
 
     return 0;
 }
+
+DIRECTION chooseDirection();
+bool moveCharacter(DIRECTION, Field&, int);
+void fight(Field&, Hero&);
 
 void gameMenu(Field& field)
 {
@@ -142,13 +141,22 @@ void fight(Field& field, Hero& attacker)
     std::cout << "Choose target: " << std::endl;
     field.printHeroList();
     int idx;
+    Hero* target = nullptr;
     do {
         std::cout << "Your choice:";
         std::cin >> idx;
-    } while (!field.battle(attacker, field.getHero(idx)));
-    std::cout << "---Attacker---\n";
-    attacker.basicStatsPrint();
+        try {
+            target = &field.getHero(idx);
+        } catch (std::out_of_range&) {
+            std::cerr << "Invalid choice" << std::endl;
+            target = nullptr;
+        }
+    } while (!target || !field.battle(attacker, *target));
+    std::cout << "\n---Attacker---\n";
+    attacker.print();
     std::cout << "\n----Target----\n";
-    field.getHero(idx).basicStatsPrint();
+    target->print();
+    if (!target->isAlive())
+        std::cout << "-Target-Dead-" << std::endl;
     std::cout << std::endl;
 }

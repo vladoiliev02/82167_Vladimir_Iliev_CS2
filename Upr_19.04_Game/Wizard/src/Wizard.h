@@ -8,7 +8,6 @@ private:
 
 public:
     Wizard(const char* name);
-    void specialPower();
-    void attack(Hero& target);
-    void print() const;
+    void afterFightSpecialPower() override;
+    void print() const override;
 };

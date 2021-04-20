@@ -7,30 +7,15 @@ Paladin::Paladin(const char* name)
     HP = 200;
 }
 
-void Paladin::attack(Hero& target)
-{
-    try {
-        basicAttack(target);
-    } catch (std::logic_error& e) {
-        std::cerr << e.what() << std::endl;
-        return;
-    }
-}
-
-void Paladin::attack(Wizard& target)
-{
-    try {
-        basicAttack(target);
-    } catch (std::logic_error& e) {
-        std::cerr << e.what() << std::endl;
-        return;
-    }
-    target.specialPower();
-}
+//void Paladin::attack(Wizard& target)
+//{
+//    basicAttack(target);
+//    target.afterFightSpecialPower();
+//}
 
 void Paladin::print() const
 {
     std::cout << "Paladin {\n";
     basicStatsPrint();
-    std::cout << " }\n" << std::endl;
+    std::cout << " }" << std::endl;
 }

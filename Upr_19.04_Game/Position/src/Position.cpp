@@ -1,7 +1,6 @@
 #include "Position.h"
 #include "field.h"
 #include <random>
-#include <ctime>
 
 Position::Position()
 {

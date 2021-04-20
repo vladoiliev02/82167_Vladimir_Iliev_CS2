@@ -51,3 +51,15 @@ void Hero::basicStatsPrint() const
               << "\nHP: " << HP
               << "\nDamage: " << damage;
 }
+
+void Hero::attack(Hero& other)
+{
+    basicAttack(other);
+}
+
+void Hero::afterFightSpecialPower()
+{
+    ;
+}
+
+
