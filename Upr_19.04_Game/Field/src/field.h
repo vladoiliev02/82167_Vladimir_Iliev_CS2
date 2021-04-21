@@ -28,6 +28,8 @@ private:
 
 public:
     Field() = delete;
+    Field(const Field& other) = delete;
+    Field& operator=(const Field& other) = delete;
     ~Field();
     explicit Field(unsigned numOfHeroes);
     void insertCharacter(Hero& character);

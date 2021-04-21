@@ -1,4 +1,4 @@
-#include "Field/src/field.h"
+#include "field.h"
 
 void gameMenu(Field&);
 

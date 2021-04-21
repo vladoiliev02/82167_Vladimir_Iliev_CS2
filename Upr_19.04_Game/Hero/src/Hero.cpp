@@ -3,27 +3,12 @@
 #include <cstring>
 #include <ctime>
 
-Hero::Hero()
-        : Position(), HP(0), damage(0)
-{
-    strcpy(this->name, "Not Set");
-}
-
 Hero::Hero(const char* name, int damage)
         : Position(), damage(damage)
 {
     if (strlen(name) > 10)
         throw std::length_error("Name cannot be longer than 10 characters");
     strcpy(this->name, name);
-}
-
-Hero::Hero(const Hero& other)
-{
-    if (strlen(name) > 10)
-        throw std::length_error("Name cannot be longer than 10 characters");
-    strcpy(this->name, other.name);
-    HP = other.HP;
-    damage = other.damage;
 }
 
 int& Hero::getHP()
