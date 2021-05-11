@@ -1,5 +1,5 @@
-
 #pragma once
+
 #include<string>
 #include<vector>
 #include"PictureData.h"
@@ -12,8 +12,8 @@ struct UserData {
 
     UserData(std::string name = "No name specified", unsigned short age = 0, std::string regDate = "No reg date", std::vector<PictureData> pictures = {});
 
-    void writeUserData(std::ofstream& ofs);
-    void readUserData(std::ifstream& ifs);
+    void writeUserData(std::ofstream& ofs, std::string& path);
+    void readUserData(std::ifstream& ifs, std::string& path);
 
     friend std::ostream& operator<<(std::ostream& os, const UserData& userData)
     {

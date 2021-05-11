@@ -57,19 +57,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2021.1\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2020.3.3\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2021.1\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2020.3.3\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\User\Downloads\Facebook
+CMAKE_SOURCE_DIR = C:\Users\User\Desktop\OOP\Git\Facebook
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\User\Downloads\Facebook\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\User\Desktop\OOP\Git\Facebook\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -77,7 +77,7 @@ CMAKE_BINARY_DIR = C:\Users\User\Downloads\Facebook\cmake-build-debug
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	"C:\Program Files\JetBrains\CLion 2021.1\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	"C:\Program Files\JetBrains\CLion 2020.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -88,7 +88,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"C:\Program Files\JetBrains\CLion 2021.1\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"C:\Program Files\JetBrains\CLion 2020.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -98,9 +98,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\User\Downloads\Facebook\cmake-build-debug\CMakeFiles C:\Users\User\Downloads\Facebook\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\User\Desktop\OOP\Git\Facebook\cmake-build-debug\CMakeFiles C:\Users\User\Desktop\OOP\Git\Facebook\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\User\Downloads\Facebook\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\User\Desktop\OOP\Git\Facebook\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -129,17 +129,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Facebook
+# Target rules for targets named Facebook2
 
 # Build rule for target.
-Facebook: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Facebook
-.PHONY : Facebook
+Facebook2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Facebook2
+.PHONY : Facebook2
 
 # fast build rule for target.
-Facebook/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook.dir\build.make CMakeFiles/Facebook.dir/build
-.PHONY : Facebook/fast
+Facebook2/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook2.dir\build.make CMakeFiles/Facebook2.dir/build
+.PHONY : Facebook2/fast
 
 Comment.obj: Comment.cpp.obj
 
@@ -147,7 +147,7 @@ Comment.obj: Comment.cpp.obj
 
 # target to build an object file
 Comment.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook.dir\build.make CMakeFiles/Facebook.dir/Comment.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook2.dir\build.make CMakeFiles/Facebook2.dir/Comment.cpp.obj
 .PHONY : Comment.cpp.obj
 
 Comment.i: Comment.cpp.i
@@ -156,7 +156,7 @@ Comment.i: Comment.cpp.i
 
 # target to preprocess a source file
 Comment.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook.dir\build.make CMakeFiles/Facebook.dir/Comment.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook2.dir\build.make CMakeFiles/Facebook2.dir/Comment.cpp.i
 .PHONY : Comment.cpp.i
 
 Comment.s: Comment.cpp.s
@@ -165,7 +165,7 @@ Comment.s: Comment.cpp.s
 
 # target to generate assembly for a file
 Comment.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook.dir\build.make CMakeFiles/Facebook.dir/Comment.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook2.dir\build.make CMakeFiles/Facebook2.dir/Comment.cpp.s
 .PHONY : Comment.cpp.s
 
 PictureData.obj: PictureData.cpp.obj
@@ -174,7 +174,7 @@ PictureData.obj: PictureData.cpp.obj
 
 # target to build an object file
 PictureData.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook.dir\build.make CMakeFiles/Facebook.dir/PictureData.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook2.dir\build.make CMakeFiles/Facebook2.dir/PictureData.cpp.obj
 .PHONY : PictureData.cpp.obj
 
 PictureData.i: PictureData.cpp.i
@@ -183,7 +183,7 @@ PictureData.i: PictureData.cpp.i
 
 # target to preprocess a source file
 PictureData.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook.dir\build.make CMakeFiles/Facebook.dir/PictureData.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook2.dir\build.make CMakeFiles/Facebook2.dir/PictureData.cpp.i
 .PHONY : PictureData.cpp.i
 
 PictureData.s: PictureData.cpp.s
@@ -192,7 +192,7 @@ PictureData.s: PictureData.cpp.s
 
 # target to generate assembly for a file
 PictureData.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook.dir\build.make CMakeFiles/Facebook.dir/PictureData.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook2.dir\build.make CMakeFiles/Facebook2.dir/PictureData.cpp.s
 .PHONY : PictureData.cpp.s
 
 UserData.obj: UserData.cpp.obj
@@ -201,7 +201,7 @@ UserData.obj: UserData.cpp.obj
 
 # target to build an object file
 UserData.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook.dir\build.make CMakeFiles/Facebook.dir/UserData.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook2.dir\build.make CMakeFiles/Facebook2.dir/UserData.cpp.obj
 .PHONY : UserData.cpp.obj
 
 UserData.i: UserData.cpp.i
@@ -210,7 +210,7 @@ UserData.i: UserData.cpp.i
 
 # target to preprocess a source file
 UserData.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook.dir\build.make CMakeFiles/Facebook.dir/UserData.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook2.dir\build.make CMakeFiles/Facebook2.dir/UserData.cpp.i
 .PHONY : UserData.cpp.i
 
 UserData.s: UserData.cpp.s
@@ -219,7 +219,7 @@ UserData.s: UserData.cpp.s
 
 # target to generate assembly for a file
 UserData.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook.dir\build.make CMakeFiles/Facebook.dir/UserData.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook2.dir\build.make CMakeFiles/Facebook2.dir/UserData.cpp.s
 .PHONY : UserData.cpp.s
 
 main.obj: main.cpp.obj
@@ -228,7 +228,7 @@ main.obj: main.cpp.obj
 
 # target to build an object file
 main.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook.dir\build.make CMakeFiles/Facebook.dir/main.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook2.dir\build.make CMakeFiles/Facebook2.dir/main.cpp.obj
 .PHONY : main.cpp.obj
 
 main.i: main.cpp.i
@@ -237,7 +237,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook.dir\build.make CMakeFiles/Facebook.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook2.dir\build.make CMakeFiles/Facebook2.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -246,7 +246,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook.dir\build.make CMakeFiles/Facebook.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Facebook2.dir\build.make CMakeFiles/Facebook2.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -257,7 +257,7 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... Facebook
+	@echo ... Facebook2
 	@echo ... Comment.obj
 	@echo ... Comment.i
 	@echo ... Comment.s

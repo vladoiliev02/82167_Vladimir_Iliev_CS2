@@ -7,45 +7,63 @@ UserData::UserData(std::string name, unsigned short age,
           pictures(std::move(pictures))
 {}
 
-void UserData::writeUserData(std::ofstream& ofs)
+void UserData::writeUserData(std::ofstream& ofs, std::string& path)
 {
+    while (!path.empty() && path.back() != '.')
+        path.pop_back();
+    path.pop_back();
+    path += "_pic_data.bin";
+    std::ofstream ofs_pictures(path, std::ios::binary);
+    if (!ofs.is_open())
+        throw std::runtime_error(path + " not open");
+
     ofs.write((const char*) &age, sizeof(unsigned short));
-    size_t nameLen = name.length();
-    ofs.write((const char*) &nameLen, sizeof(size_t));
-    ofs.write((const char*) name.c_str(), nameLen * sizeof(char));
-    size_t regDateLen = regDate.length();
-    ofs.write((const char*) &regDateLen, sizeof(size_t));
-    ofs.write((const char*) regDate.c_str(), regDateLen * sizeof(char));
+
+    size_t size = name.length();
+    ofs.write((const char*) &size, sizeof(size_t));
+    ofs.write(name.c_str(), size);
+
+    size = regDate.length();
+    ofs.write((const char*) &size, sizeof(size_t));
+    ofs.write(regDate.c_str(), size);
+
     if (!ofs.good())
         throw std::runtime_error("User Data writing error");
 
     size_t picturesSize = pictures.size();
     ofs.write((const char*) &picturesSize, sizeof(size_t));
     for (size_t i = 0; i < picturesSize; ++i) {
-        pictures[i].writePictureData(ofs);
+        pictures[i].writePictureData(ofs_pictures);
         if (!ofs.good())
             throw std::runtime_error("User Data writing error");
     }
+    ofs_pictures.close();
 }
 
-void UserData::readUserData(std::ifstream& ifs)
+void UserData::readUserData(std::ifstream& ifs, std::string& path)
 {
-    ifs.read((char*) &age, sizeof(unsigned short));
-    size_t nameLen;
-    ifs.read((char*) &nameLen, sizeof(size_t));
-    char* name = new char [nameLen+1];
-    ifs.read((char*) name, nameLen * sizeof(char));
-    name[nameLen] = '\0';
-    this->name = std::string(name);
-    delete[] name;
+    while (!path.empty() && path.back() != '.')
+        path.pop_back();
+    path.pop_back();
+    path += "_pic_data.bin";
+    std::ifstream ifs_pictures(path, std::ios::binary);
+    if (!ifs.is_open())
+        throw std::runtime_error(path + " not open");
 
-    size_t regDateLen;
-    ifs.read((char*) &regDateLen, sizeof(size_t));
-    char* regDate = new char[regDateLen+1];
-    ifs.read((char*) regDate, regDateLen * sizeof(char));
-    regDate[regDateLen] = '\0';
-    this->regDate = std::string(regDate);
-    delete[] regDate;
+    ifs.read((char*) &age, sizeof(unsigned short));
+    size_t size;
+
+    ifs.read((char*) &size, sizeof(size_t));
+    if (!name.empty())
+        name.clear();
+    name.resize(size);
+    ifs.read((char *)name.c_str(), size);
+
+    ifs.read((char*) &size, sizeof(size_t));
+    if (!regDate.empty())
+        regDate.clear();
+    regDate.resize(size);
+    ifs.read((char *)regDate.c_str(), size);
     if (!ifs.good())
         throw std::runtime_error("User Data reading error");
 
@@ -53,11 +71,12 @@ void UserData::readUserData(std::ifstream& ifs)
     ifs.read((char*) &picturesSize, sizeof(size_t));
     if (!pictures.empty())
         pictures.clear();
+    pictures.resize(picturesSize);
     for (size_t i = 0; i < picturesSize; ++i) {
-        pictures.emplace_back();
-        pictures.back().readPictureData(ifs);
+        pictures[i].readPictureData(ifs_pictures);
         if (!ifs.good())
             throw std::runtime_error("User Data reading error");
     }
+    ifs_pictures.close();
 }
 

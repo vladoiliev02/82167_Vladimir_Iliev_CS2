@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/User/Desktop/OOP/Git/Facebook/Comment.h
+string
+-
+fstream
+-
+
+C:/Users/User/Desktop/OOP/Git/Facebook/PictureData.h
+string
+-
+vector
+-
+Comment.h
+C:/Users/User/Desktop/OOP/Git/Facebook/Comment.h
+
+C:/Users/User/Desktop/OOP/Git/Facebook/UserData.h
+string
+-
+vector
+-
+PictureData.h
+C:/Users/User/Desktop/OOP/Git/Facebook/PictureData.h
+
+C:/Users/User/Desktop/OOP/Git/Facebook/main.cpp
+iostream
+-
+UserData.h
+C:/Users/User/Desktop/OOP/Git/Facebook/UserData.h
+

@@ -14,7 +14,7 @@ void PictureData::writePictureData(std::ofstream& ofs)
 {
     size_t descriptionLength = description.size();
     ofs.write((const char*) &descriptionLength, sizeof(size_t));
-    ofs.write((const char*) description.c_str(), descriptionLength);
+    ofs.write(description.c_str(), descriptionLength);
     if (!ofs.good())
         throw std::runtime_error("PictureData writing error");
     ofs.write((const char*) &numberOfLikes, sizeof(size_t));
@@ -31,11 +31,11 @@ void PictureData::readPictureData(std::ifstream& ifs)
 {
     size_t descriptionLength;
     ifs.read((char*) &descriptionLength, sizeof(size_t));
-    char* description = new char [descriptionLength+1];
-    ifs.read((char*)description, descriptionLength);
-    description[descriptionLength] = '\0';
-    this->description = std::string(description);
-    delete[] description;
+    if(!description.empty())
+        description.clear();
+    description.resize(descriptionLength);
+    ifs.read((char*) description.c_str(), descriptionLength);
+
     if (!ifs.good())
         throw std::runtime_error("PictureData writing error");
     ifs.read((char*) &numberOfLikes, sizeof(size_t));
